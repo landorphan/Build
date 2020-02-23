@@ -10,6 +10,8 @@ stages:
           path: s/source
         - checkout: build
           path: s/build
+        - chechout: tools
+          path: s/tools
         - powershell: | 
             Get-ChildItem env:
           displayName: Display Envrionment Varaibles 
