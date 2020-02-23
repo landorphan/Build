@@ -14,5 +14,6 @@ stages:
             Get-ChildItem env:
           displayName: Display Envrionment Varaibles 
         - powershell: |
-            $Env:SEARCHFOR.Split(',') | foreach { Get-ChildItem -r "$_" | % { $_.FullName } }
+            $Env:SEARCHFOR.Split(',') | foreach { Get-ChildItem -r "$_" | % { $_.FullName } } > "$Env:BUILD_ARTIFACTSTAGINGDIRECTORY/build/build.lst"
+            Get-ChildItem "$Env:BUILD_ARTIFACTSTAGINGDIRECTORY"
           displayName: Locate Build Files
