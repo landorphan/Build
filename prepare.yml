@@ -14,7 +14,7 @@ stages:
             echo "$Env:SEARCHFOR".Split(',')
             echo "Listing Files"
             pwd
-            ls
+            ls -r | % { $_.FullName }
             # $Env:SEARCHFOR.Split(',') | % { Get-ChildItem -r "$_" | % { $_.FullName } }
             echo "END Listing Files"
           displayName: List Directory Contents
