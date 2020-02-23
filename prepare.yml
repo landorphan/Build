@@ -15,7 +15,9 @@ stages:
             echo "Listing Files"
             pwd
             ls -r
-            ls -r | For-EachObject { $_.FullName }
+            ls alias:
+            help For
+            # ls -r | For-EachObject { $_.FullName }
             # $Env:SEARCHFOR.Split(',') | % { Get-ChildItem -r "$_" | % { $_.FullName } }
             echo "END Listing Files"
           displayName: List Directory Contents
