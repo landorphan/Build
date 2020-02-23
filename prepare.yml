@@ -29,8 +29,9 @@ stages:
             echo "Outputing Map"
             cat "$AGENT_BUILDDIRECTORY/info/projects.map"
           displayName: Generating Project Map
-        - publish: $(Build.BuildDirectory)/info
+        - publish: $(Agent.BuildDirectory)/info
           artifact: info
+          displayName: Publish Build Info
 
     - job: Build
       dependsOn: PrepareJob
