@@ -16,5 +16,6 @@ stages:
         - powershell: |
             if (!(Test-Path "$Env:BUILD_ARTIFACTSTAGINGDIRECTORY/build" )) { mkdir "$Env:BUILD_ARTIFACTSTAGINGDIRECTORY/build" }
             $Env:SEARCHFOR.Split(',') | foreach { Get-ChildItem -r "$_" | % { $_.FullName } } > "$Env:BUILD_ARTIFACTSTAGINGDIRECTORY/build/build.lst"
-            Get-ChildItem "$Env:BUILD_ARTIFACTSTAGINGDIRECTORY/build"
+            echo "Located the following build files"
+            cat "$Env:BUILD_ARTIFACTSTAGINGDIRECTORY/build/build.lst"
           displayName: Locate Build Files
