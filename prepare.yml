@@ -11,8 +11,8 @@ stages:
         - checkout: build
           path: s/build
         - powershell: | 
-            echo "Displaying Envrionment Variables"
             Get-ChildItem env:
-            echo "Finding Files"
+          displayName: Display Envrionment Varaibles 
+        - powershell: |
             $Env:SEARCHFOR.Split(',') | foreach { Get-ChildItem -r "$_" | % { $_.FullName } }
-          displayName: List Directory Contents
+          displayName: Locate Build Files
