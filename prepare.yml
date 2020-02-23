@@ -46,3 +46,5 @@ stages:
           inputs:
             artifact: build
             path: $(Agent.BuildDirectory)/build
+        - bash: |
+            ls "$AGENT_BUILDDIRECTORY"/build
