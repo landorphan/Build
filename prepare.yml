@@ -21,3 +21,5 @@ stages:
             echo "Located the following build files"
             cat "$Env:BUILD_ARTIFACTSTAGINGDIRECTORY/build/build.lst"
           displayName: Locate Build Files
+        - bash: dotnet build tools
+          displayName: Create Build Tools
