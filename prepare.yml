@@ -16,21 +16,21 @@ stages:
             Get-ChildItem env:
           displayName: Display Envrionment Varaibles 
         - powershell: |
-            if (!(Test-Path "$Env:BUILD_ARTIFACTSTAGINGDIRECTORY/build" )) { mkdir "$Env:BUILD_ARTIFACTSTAGINGDIRECTORY/build" }
-            $Env:SEARCHFOR.Split(',') | foreach { Get-ChildItem -r "$_" | % { $_.FullName } } > "$Env:BUILD_ARTIFACTSTAGINGDIRECTORY/build/build.lst"
+            if (!(Test-Path "$Env:AGENT_BUILDDIRECTORY/info" )) { mkdir "$Env:AGENT_BUILDDIRECTORY/info" }
+            $Env:SEARCHFOR.Split(',') | foreach { Get-ChildItem -r "$_" | % { $_.FullName } } > "$Env:AGENT_BUILDDIRECTORY/info/build.lst"
             echo "Located the following build files"
-            cat "$Env:BUILD_ARTIFACTSTAGINGDIRECTORY/build/build.lst"
+            cat "$Env:AGENT_BUILDDIRECTORY/info/build.lst"
           displayName: Locate Build Files
         - bash: dotnet build tools
           displayName: Create Build Tools
         - bash: |
             echo "Building Map"
-            cat "$BUILD_ARTIFACTSTAGINGDIRECTORY/build/build.lst" | dotnet tools/DotNetCoreBuildTools/bin/Debug/netcoreapp3.1/DotNetCoreBuildTools.dll > "$BUILD_ARTIFACTSTAGINGDIRECTORY/build/projects.map"
+            cat "$AGENT_BUILDDIRECTORY/info/build.lst" | dotnet tools/DotNetCoreBuildTools/bin/Debug/netcoreapp3.1/DotNetCoreBuildTools.dll > "$AGENT_BUILDDIRECTORY/info/projects.map"
             echo "Outputing Map"
-            cat "$BUILD_ARTIFACTSTAGINGDIRECTORY/build/projects.map"
+            cat "$AGENT_BUILDDIRECTORY/info/projects.map"
           displayName: Generating Project Map
-        - publish: $(Build.ArtifactStagingDirectory)/build
-          artifact: build
+        - publish: $(Build.BuildDirectory)/info
+          artifact: info
 
     - job: Build
       dependsOn: PrepareJob
@@ -44,11 +44,11 @@ stages:
           path: s/build
         - task: DownloadPipelineArtifact@2
           inputs:
-            artifact: build
-            path: $(Agent.BuildDirectory)/build
+            artifact: info
+            path: $(Agent.BuildDirectory)/info
           displayName: Download Build Map
         - bash: |
-            ls "$AGENT_BUILDDIRECTORY"/build
+            ls "$AGENT_BUILDDIRECTORY"/info
           displayName: List Build Artifacts
         - bash: |
             echo "$AGENT_JOBNAME"
