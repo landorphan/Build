@@ -12,13 +12,9 @@ stages:
           path: s/build
         - powershell: | 
             echo "$Env:SEARCHFOR".Split(',')
-            pwd
             echo "Listing Files"
-            ls 
-            echo "Detailed"
-            ls -r
-            echo "Condenced"
-            ls -r | foreach { $_.FullName }
+            ls build
+            ls source
             # $Env:SEARCHFOR.Split(',') | % { Get-ChildItem -r "$_" | % { $_.FullName } }
             echo "END Listing Files"
           displayName: List Directory Contents
