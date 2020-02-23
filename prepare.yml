@@ -31,3 +31,18 @@ stages:
           displayName: Generating Project Map
         - publish: $(Build.ArtifactStagingDirectory)/build
           artifact: build
+
+    - job: Build
+      dependsOn: PrepareJob
+      pool:
+        vmImage: 'ubuntu-latest'
+
+      steps:
+        - checkout: self
+          path: s/source
+        - checkout: build
+          path: s/build
+        - task: DownloadPipelineArtifact@2
+          inputs:
+            artifact: build
+            path: $(Agent.BuildDirectory)/build
