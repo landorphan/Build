@@ -23,3 +23,7 @@ stages:
           displayName: Locate Build Files
         - bash: dotnet build tools
           displayName: Create Build Tools
+        - bash: |
+            cat "$Env:BUILD_ARTIFACTSTAGINGDIRECTORY/build/build.lst" | dotnet tools/DotNetCoreBuildTools/bin/Debug/netcoreapp3.1/DotNetCoreBuildTools.dll |  > "$Env:BUILD_ARTIFACTSTAGINGDIRECTORY/build/projects.map"
+            cat "$Env:BUILD_ARTIFACTSTAGINGDIRECTORY/build/projects.map"
+          displayName: Generating Project Map
