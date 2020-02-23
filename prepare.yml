@@ -46,5 +46,10 @@ stages:
           inputs:
             artifact: build
             path: $(Agent.BuildDirectory)/build
+          displayName: Download Build Map
         - bash: |
             ls "$AGENT_BUILDDIRECTORY"/build
+          displayName: List Build Artifacts
+        - bash: |
+            echo "$AGENT_JOBNAME"
+          displayName: Echo Job Name
