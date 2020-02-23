@@ -12,7 +12,7 @@ stages:
           path: s/build
         - powershell: | 
             echo "Displaying Envrionment Variables"
-            ls $env:
+            Get-ChildItem env:
             echo "Finding Files"
             $Env:SEARCHFOR.Split(',') | foreach { Get-ChildItem -r "$_" | % { $_.FullName } }
           displayName: List Directory Contents
