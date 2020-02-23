@@ -25,7 +25,7 @@ stages:
           displayName: Create Build Tools
         - bash: |
             echo "Building Map"
-            cat "$BUILD_ARTIFACTSTAGINGDIRECTORY/build/build.lst" | dotnet tools/DotNetCoreBuildTools/bin/Debug/netcoreapp3.1/DotNetCoreBuildTools.dll # |  > "$BUILD_ARTIFACTSTAGINGDIRECTORY/build/projects.map"
+            cat "$BUILD_ARTIFACTSTAGINGDIRECTORY/build/build.lst" | dotnet tools/DotNetCoreBuildTools/bin/Debug/netcoreapp3.1/DotNetCoreBuildTools.dll > "$BUILD_ARTIFACTSTAGINGDIRECTORY/build/projects.map"
             echo "Outputing Map"
             ls -l "$BUILD_ARTIFACTSTAGINGDIRECTORY/build/projects.map"
             cat "$BUILD_ARTIFACTSTAGINGDIRECTORY/build/projects.map"
