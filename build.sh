@@ -37,9 +37,9 @@ function BuildGroup() {
     BUILD_VERSION=0.9.0
     for line in "${BUILD_ITEMS[@]}"; do
         PROJ_FILE=$(echo $line | sed -n -E 's/.*\|6>([^<]*)<6.*/\1/p')
-        dotnet build --no-dependencies --no-restore -p:Version="$BUILD_VERSION" --configuration:Release "$PROJ_FILE" #&
+        # dotnet build --no-dependencies --no-restore -p:Version="$BUILD_VERSION" --configuration:Release "$PROJ_FILE" #&
         # PIDS[${i}]=$!
-        # echo "Building $i $PROJ_FILE"
+        echo "Building $PROJ_FILE"
         # let 'i++'
     done
 
