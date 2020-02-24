@@ -48,6 +48,8 @@ stages:
             artifact: info
             path: $(Agent.BuildDirectory)/info
           displayName: Download Build Map
+        - bash: find "$BUILD_SOURCESDIRECTORY/build" -name '*.sh' | xargs chmod 777
+          displayName: Authorizing Build Scripts
         - bash: $(Build.SourcesDirectory)/build/build.sh
         #     ls "$AGENT_BUILDDIRECTORY"/info
         #   displayName: List Build Artifacts
