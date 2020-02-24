@@ -32,9 +32,19 @@ function BuildGroup() {
     BUILD_ITEMS=($(echo "$BASE_MAP" | grep "|0>$1<0|"))
     echo "Building Group $1"
 
+    i=0
+    pids=()
+    BUILD_VERSION=0.9.0
     for line in "${BUILD_ITEMS[@]}"; do
         PROJ_FILE=$(echo $line | sed -n -E 's/.*\|6>([^<]*)<6.*/\1/p')
+        dotnet build --no-dependencies --no-restore -p:Version="$BUILD_VERSION" --configuration:Release --source "$PROJ_FILE" &
+        PIDS[${i}]=$!
+        let 'i++'
         echo "Building $PROJ_FILE"
+    done
+
+    for pid in ${pids[*]}; do
+        wait $pid
     done
     # PROJ_FILE=$(echo $0 | sed -n -E 's/.*\|6>([^<]*)<6.*/\1/p')
     # BUILD_VERSION=$(cat /tmp/build.ver)
