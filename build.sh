@@ -34,7 +34,7 @@ function BuildGroup() {
 
     while IFS= read -r line; do
         echo "... $line ..."
-    done <<< echo "$BUILD_ITEMS"
+    done <<< $(echo "$BUILD_ITEMS")
 
     # for line in "${BUILD_ITEMS[@]}"; do
     #     echo "Building $line"
