@@ -3,6 +3,7 @@
 echo "Running Build"
 
 INPT=$(cat "$AGENT_BUILDDIRECTORY/info/projects.map")
+#INPT=$(cat "/tmp/projects.map")
 HEADER=$(echo "$INPT" | grep "^:")
 BASE_MAP=$(echo "$INPT" | grep "|0>")
 
@@ -28,24 +29,19 @@ done
 
 function BuildGroup() {
     #   --runtime ubuntu.18.04-x64
-    BUILD_ITEMS=$(echo "$BASE_MAP" | grep "|0>$1<0|" | xargs -I % bash -c BuildProject '%')
+    BUILD_ITEMS=($(echo "$BASE_MAP" | grep "|0>$1<0|"))
     echo "Building Group $1"
-    echo "$BUILD_ITEMS"
 
-    while IFS="\n" read -r line; do
-        echo "... $line ..."
-    done <<< $(echo "$BUILD_ITEMS")
-
-    # for line in "${BUILD_ITEMS[@]}"; do
-    #     echo "Building $line"
-    # done
+    for line in "${BUILD_ITEMS[@]}"; do
+        echo "Building $line"
+    done
     # PROJ_FILE=$(echo $0 | sed -n -E 's/.*\|6>([^<]*)<6.*/\1/p')
     # BUILD_VERSION=$(cat /tmp/build.ver)
     # echo "Building ($PROJ_FILE) version: $BUILD_VERSION"
     # dotnet build --no-dependencies --no-restore -p:Version="$BUILD_VERSION" --configuration:Release --source "$PROJ_FILE"
 }
 
-export -f BuildGroup
+# export -f BuildGroup
 
 for (( i=0; i<=$MAX_GROUP; i++))
 do
