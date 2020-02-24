@@ -25,3 +25,20 @@ for (( i=0; i<=$MAX_GROUP; i++))
 do
     echo "$BASE_MAP" | grep "|0>$i<0|" | sed -n -E 's/.*\|6>([^<]*)<6.*/\1/p' | xargs -I % bash -c RestoreProject '%'
 done
+
+function BuildGroup() {
+    #   --runtime ubuntu.18.04-x64
+    echo $0 $1
+    # PROJ_FILE=$(echo $0 | sed -n -E 's/.*\|6>([^<]*)<6.*/\1/p')
+    # BUILD_VERSION=$(cat /tmp/build.ver)
+    # echo "Building ($PROJ_FILE) version: $BUILD_VERSION"
+    # dotnet build --no-dependencies --no-restore -p:Version="$BUILD_VERSION" --configuration:Release --source "$PROJ_FILE"
+}
+
+export -f BuildGroup
+
+for (( i=0; i<=$MAX_GROUP; i++))
+do
+    BuildGroup $i
+    # echo "$BASE_MAP" | grep "|0>$i<0|" | xargs -I % bash -c BuildProject '%'
+done
