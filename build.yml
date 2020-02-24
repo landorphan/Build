@@ -17,7 +17,7 @@ stages:
           displayName: Display Envrionment Varaibles 
         - powershell: |
             if (!(Test-Path "$Env:AGENT_BUILDDIRECTORY/info" )) { mkdir "$Env:AGENT_BUILDDIRECTORY/info" }
-            $Env:SEARCHFOR.Split(',') | foreach { Get-ChildItem -r "$_" | % { $_.FullName } } > "$Env:AGENT_BUILDDIRECTORY/info/build.lst"
+            $Env:SEARCHFOR.Split(',') | foreach { Get-ChildItem -r "source/$_" | % { $_.FullName } } > "$Env:AGENT_BUILDDIRECTORY/info/build.lst"
             echo "Located the following build files"
             cat "$Env:AGENT_BUILDDIRECTORY/info/build.lst"
           displayName: Locate Build Files
@@ -51,6 +51,7 @@ stages:
         - bash: find "$BUILD_SOURCESDIRECTORY/build" -name '*.sh' | xargs chmod 777
           displayName: Authorizing Build Scripts
         - bash: $(Build.SourcesDirectory)/build/build.sh
+          displayName: Run Build
         #     ls "$AGENT_BUILDDIRECTORY"/info
         #   displayName: List Build Artifacts
         # - bash: |
