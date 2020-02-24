@@ -35,7 +35,6 @@ stages:
 
     - job: Build
       dependsOn: PrepareJob
-      condition: ne(variables['BuildServers'], 'multiple')
       pool:
         vmImage: 'ubuntu-latest'
 
@@ -56,25 +55,3 @@ stages:
             echo "$AGENT_JOBNAME"
           displayName: Echo Job Name
 
-    - job: Build_0
-      dependsOn: PrepareJob
-      condition: eq(variables['BuildServers'], 'multiple')
-      pool:
-        vmImage: 'ubuntu-latest'
-
-      steps:
-        - checkout: self
-          path: s/source
-        - checkout: build
-          path: s/build
-        - task: DownloadPipelineArtifact@2
-          inputs:
-            artifact: info
-            path: $(Agent.BuildDirectory)/info
-          displayName: Download Build Map
-        - bash: |
-            ls "$AGENT_BUILDDIRECTORY"/info
-          displayName: List Build Artifacts
-        - bash: |
-            echo "$AGENT_JOBNAME"
-          displayName: Echo Job Name
