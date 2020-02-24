@@ -31,6 +31,10 @@ function BuildGroup() {
     BUILD_ITEMS=$(echo "$BASE_MAP" | grep "|0>$1<0|" | xargs -I % bash -c BuildProject '%')
     echo "Building Group $1"
     echo "$BUILD_ITEMS"
+
+    for line in "${BUILD_ITEMS[@]}"; do
+        echo "Building $line"
+    done
     # PROJ_FILE=$(echo $0 | sed -n -E 's/.*\|6>([^<]*)<6.*/\1/p')
     # BUILD_VERSION=$(cat /tmp/build.ver)
     # echo "Building ($PROJ_FILE) version: $BUILD_VERSION"
