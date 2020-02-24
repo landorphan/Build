@@ -48,7 +48,7 @@ stages:
             artifact: info
             path: $(Agent.BuildDirectory)/info
           displayName: Download Build Map
-        - bash: $(Build.SourcesDirectory)/build.sh
+        - bash: $(Build.SourcesDirectory)/build/build.sh
         #     ls "$AGENT_BUILDDIRECTORY"/info
         #   displayName: List Build Artifacts
         # - bash: |
