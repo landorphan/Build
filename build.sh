@@ -33,7 +33,8 @@ function BuildGroup() {
     echo "Building Group $1"
 
     for line in "${BUILD_ITEMS[@]}"; do
-        echo "Building $line"
+        PROJ_FILE=$(echo $0 | sed -n -E 's/.*\|6>([^<]*)<6.*/\1/p')
+        echo "Building $PROJ_FILE"
     done
     # PROJ_FILE=$(echo $0 | sed -n -E 's/.*\|6>([^<]*)<6.*/\1/p')
     # BUILD_VERSION=$(cat /tmp/build.ver)
