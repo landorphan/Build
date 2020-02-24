@@ -35,6 +35,7 @@ stages:
 
     - job: Build
       dependsOn: PrepareJob
+      condition: ne(variables['BuildServers'], 'multiple')
       pool:
         vmImage: 'ubuntu-latest'
 
