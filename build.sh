@@ -32,7 +32,7 @@ function BuildGroup() {
     echo "Building Group $1"
     echo "$BUILD_ITEMS"
 
-    while IFS= read -r line; do
+    while IFS="\n" read -r line; do
         echo "... $line ..."
     done <<< $(echo "$BUILD_ITEMS")
 
